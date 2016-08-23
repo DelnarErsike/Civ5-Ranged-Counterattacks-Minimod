@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Deploy" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Default</Configuration>
+    <ProjectGuid>{00235d28-9180-44c4-8fd0-c1fa76ca97e7}</ProjectGuid>
+    <Name>Ranged Counterattacks</Name>
+    <Guid>a9548e5c-a079-423c-977e-a2b7373f8140</Guid>
+    <ModVersion>1</ModVersion>
+    <Stability>Alpha</Stability>
+    <Teaser>Enables Ranged Counterattacks</Teaser>
+    <Description>This mod is a DLL mod. It is not compatible with any mod that modifies CvGameCore_Expansion2.dll. The UI portion of this mod relies on EnemyUnitPanel.lua, any mod that modifies this file will conflict with the UI portion of this mod.
+
+Units and cities can now receive instant counterattacks from ranged attacks. There are three different scenarios that can happen.
+
+If a ranged unit or a city is attacked by a ranged unit or city, then if the target could attack back right away (e,g, it's set up if it's a siege unit, the attacker is in range, the target has LoS of the attacker), the target instantly counterattacks, similar to how melee combat works. The attacker takes damage even if they're in a city.
+
+If a melee unit is attacked by a ranged unit, then if the melee target is adjacent to the attacker and is able to attack the attacker's tile from their current tile (e.g. the melee unit is not currently embarked, the melee unit would not be counterattacking a ranged ship ), the melee target will counterattack the ranged unit after the ranged unit has dealt damage. Therefore, if the ranged unit kills the melee target, no counterattack will happen. The attacker takes damage even if they're in a city.
+
+If a melee unit is attacked by a city, then if the melee target is adjacent to the city and is not currently embarked, the following sequence will happen. First, the city deals damage to the unit from its ranged attack. Next, the melee unit will attack the city based on its health after it has taken damage from the city's ranged attack. Finally, the melee unit takes extra damage as if they had melee attacked the city instead of the city having ranged attacked them. In short, the city forces the melee unit to attack it, but the city takes less damage than if the unit had melee attacked it on its own turn. Cities cannot die from being counterattacked. The process is a bit awkward, but it is the best way to ensure that counterattacks to ranged attacks are both ubiquitous and consistent: counterattacks between ranged units and cities deal the same amount of damage both ways as ranged attacks, so counterattacks between cities and melee units deal the same amount of damage both ways as (melee) attacks, with the extra first strike bonus to cities (i.e. they take less damage based on how much damage they would deal from their ranged attack, just like how it works for ranged units).
+
+Special thanks to fruitstrike for providing the NQMod codebase on which I performed initial testing for this mod.</Description>
+    <Authors>Delnar_Ersike</Authors>
+    <SpecialThanks>fruitstrike</SpecialThanks>
+    <AffectsSavedGames>false</AffectsSavedGames>
+    <MinCompatibleSaveVersion>0</MinCompatibleSaveVersion>
+    <SupportsSinglePlayer>true</SupportsSinglePlayer>
+    <SupportsMultiplayer>true</SupportsMultiplayer>
+    <SupportsHotSeat>true</SupportsHotSeat>
+    <SupportsMac>true</SupportsMac>
+    <AssemblyName>Ranged Counterattacks</AssemblyName>
+    <RootNamespace>Ranged Counterattacks</RootNamespace>
+    <ModReferences />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Default' ">
+    <OutputPath>.</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Package Only' ">
+    <PackageMod>true</PackageMod>
+    <DeployMod>false</DeployMod>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Deploy Only' ">
+    <PackageMod>false</PackageMod>
+    <DeployMod>true</DeployMod>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="Civ5_Ranged_Counterattacks_License.txt">
+      <SubType>Lua</SubType>
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="CvGameCore_Expansion2.dll">
+      <SubType>Lua</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="EnemyUnitPanel.lua">
+      <SubType>Lua</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Firaxis\ModBuddy\Civ5Mod.targets" />
+</Project>

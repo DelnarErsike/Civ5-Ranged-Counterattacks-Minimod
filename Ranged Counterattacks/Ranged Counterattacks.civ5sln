@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# ModBuddy Solution File, Format Version 11.00
+Project("{F5FC21B5-7CC2-458A-ABBA-992F515BBA20}") = "Ranged Counterattacks", "Ranged Counterattacks\Ranged Counterattacks.civ5proj", "{00235D28-9180-44C4-8FD0-C1FA76CA97E7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Default|x86 = Default|x86
+		Deploy Only|x86 = Deploy Only|x86
+		Package Only|x86 = Package Only|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{00235D28-9180-44C4-8FD0-C1FA76CA97E7}.Default|x86.ActiveCfg = Default|x86
+		{00235D28-9180-44C4-8FD0-C1FA76CA97E7}.Default|x86.Build.0 = Default|x86
+		{00235D28-9180-44C4-8FD0-C1FA76CA97E7}.Deploy Only|x86.ActiveCfg = Deploy Only|x86
+		{00235D28-9180-44C4-8FD0-C1FA76CA97E7}.Deploy Only|x86.Build.0 = Deploy Only|x86
+		{00235D28-9180-44C4-8FD0-C1FA76CA97E7}.Package Only|x86.ActiveCfg = Package Only|x86
+		{00235D28-9180-44C4-8FD0-C1FA76CA97E7}.Package Only|x86.Build.0 = Package Only|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
