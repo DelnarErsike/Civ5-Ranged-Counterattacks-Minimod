@@ -8,15 +8,15 @@
     <ModVersion>1</ModVersion>
     <Stability>Alpha</Stability>
     <Teaser>Enables Ranged Counterattacks</Teaser>
-    <Description>This mod is a DLL mod. It is not compatible with any mod that modifies CvGameCore_Expansion2.dll. The UI portion of this mod relies on EnemyUnitPanel.lua, any mod that modifies this file will conflict with the UI portion of this mod.
-
-Units and cities can now receive instant counterattacks from ranged attacks. There are three different scenarios that can happen.
+    <Description>Units and cities can now receive instant counterattacks from ranged attacks. There are three different scenarios that can happen.
 
 If a ranged unit or a city is attacked by a ranged unit or city, then if the target could attack back right away (e,g, it's set up if it's a siege unit, the attacker is in range, the target has LoS of the attacker), the target instantly counterattacks, similar to how melee combat works. The attacker takes damage even if they're in a city.
 
 If a melee unit is attacked by a ranged unit, then if the melee target is adjacent to the attacker and is able to attack the attacker's tile from their current tile (e.g. the melee unit is not currently embarked, the melee unit would not be counterattacking a ranged ship ), the melee target will counterattack the ranged unit after the ranged unit has dealt damage. Therefore, if the ranged unit kills the melee target, no counterattack will happen. The attacker takes damage even if they're in a city.
 
 If a melee unit is attacked by a city, then if the melee target is adjacent to the city and is not currently embarked, the following sequence will happen. First, the city deals damage to the unit from its ranged attack. Next, the melee unit will attack the city based on its health after it has taken damage from the city's ranged attack. Finally, the melee unit takes extra damage as if they had melee attacked the city instead of the city having ranged attacked them. In short, the city forces the melee unit to attack it, but the city takes less damage than if the unit had melee attacked it on its own turn. Cities cannot die from being counterattacked. The process is a bit awkward, but it is the best way to ensure that counterattacks to ranged attacks are both ubiquitous and consistent: counterattacks between ranged units and cities deal the same amount of damage both ways as ranged attacks, so counterattacks between cities and melee units deal the same amount of damage both ways as (melee) attacks, with the extra first strike bonus to cities (i.e. they take less damage based on how much damage they would deal from their ranged attack, just like how it works for ranged units).
+
+This mod is a DLL mod. It is not compatible with any mod that modifies CvGameCore_Expansion2.dll. The UI portion of this mod relies on EnemyUnitPanel.lua, any mod that modifies this file will conflict with the UI portion of this mod.
 
 Special thanks to fruitstrike for providing the NQMod codebase on which I performed initial testing for this mod.</Description>
     <Authors>Delnar_Ersike</Authors>

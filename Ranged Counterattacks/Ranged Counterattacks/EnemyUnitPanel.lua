@@ -330,7 +330,7 @@ function UpdateCombatOddsUnitVsCity(pMyUnit, pCity)
 					iTheirDamageInflicted = pCity:GetAirStrikeDefenseDamage(pMyUnit, false);	
 					iNumVisibleAAUnits = pMyUnit:GetInterceptorCount(pPlot, nil, true, true);		
 					bInterceptPossible = true;	
-				elseif (Game.IsOption("GAMEOPTION_ENABLE_RANGED_COUNTERATTACKS")) then
+				else
 					if (pCity:CanRangeStrikeAt(pMyUnit:getX(), pMyUnit:getY(), 1)) then
 						iTheirDamageInflicted = pCity:RangeCombatDamage(pMyUnit, nil, false);
 					end
@@ -695,7 +695,7 @@ function UpdateCombatOddsUnitVsUnit(pMyUnit, pTheirUnit)
 					iTheirDamageInflicted = pTheirUnit:GetAirStrikeDefenseDamage(pMyUnit, false);				
 					iNumVisibleAAUnits = pMyUnit:GetInterceptorCount(pToPlot, pTheirUnit, true, true);		
 					bInterceptPossible = true;
-				elseif (Game.IsOption("GAMEOPTION_ENABLE_RANGED_COUNTERATTACKS") and (not pTheirUnit:IsCityAttackOnly())) then
+				elseif (not pTheirUnit:IsCityAttackOnly()) then
 					if (pTheirUnit:IsCanAttackRanged() and pTheirUnit:CanEverRangeStrikeAt(pMyUnit:GetX(), pMyUnit:GetY())) then
 						iTheirDamageInflicted = pTheirUnit:GetRangeCombatDamage(pMyUnit, nil, false);
 					elseif (iMyDamageInflicted + pTheirUnit:GetDamage() < pTheirUnit:GetMaxHitPoints() and pTheirUnit:IsCanAttackWithMove() and Map.PlotDistance(pTheirUnit:GetX(), pTheirUnit:GetY(), pMyUnit:GetX(), pMyUnit:GetY()) <= 1 and pTheirUnit:PlotValid(pFromPlot) and pTheirUnit:PlotValid(pToPlot)) then
@@ -1714,17 +1714,15 @@ function UpdateCombatOddsCityVsUnit(myCity, theirUnit)
 	
 	local pFromPlot = myCity:Plot();
 	local pToPlot = theirUnit:GetPlot();
-	if (Game.IsOption("GAMEOPTION_ENABLE_RANGED_COUNTERATTACKS")) then
-		if (theirUnit:IsCanAttackRanged() and theirUnit:CanEverRangeStrikeAt(myCity:GetX(), myCity:GetY())) then
-			theirUnitDamageInflicted = theirUnit:GetRangeCombatDamage(nil, myCity, false);
-		elseif (myCityDamageInflicted + theirUnitCurHP < theirUnitMaxHP and theirUnit:IsCanAttackWithMove() and Map.PlotDistance(theirUnit:GetX(), theirUnit:GetY(), myCity:GetX(), myCity:GetY()) <= 1 and theirUnit:PlotValid(pFromPlot) and theirUnit:PlotValid(pToPlot)) then
-			local iMyDefenseStrength = myCity:GetStrengthValue();
-			local iTheirAttackStrength = theirUnit:GetMaxAttackStrength(pToPlot, pFromPlot, pMyUnit);
-			theirUnitDamageInflicted = theirUnit:GetCombatDamage(iTheirAttackStrength, iMyDefenseStrength, myCityDamageInflicted + theirUnitCurHP, false, false, true);
-			local iTempDamage = theirUnit:GetCombatDamage(iMyDefenseStrength, iTheirAttackStrength, theirUnitCurHP, false, true, false);
-			if (iTempDamage > myCityDamageInflicted) then
-				myCityDamageInflicted = iTempDamage;
-			end
+	if (theirUnit:IsCanAttackRanged() and theirUnit:CanEverRangeStrikeAt(myCity:GetX(), myCity:GetY())) then
+		theirUnitDamageInflicted = theirUnit:GetRangeCombatDamage(nil, myCity, false);
+	elseif (myCityDamageInflicted + theirUnitCurHP < theirUnitMaxHP and theirUnit:IsCanAttackWithMove() and Map.PlotDistance(theirUnit:GetX(), theirUnit:GetY(), myCity:GetX(), myCity:GetY()) <= 1 and theirUnit:PlotValid(pFromPlot) and theirUnit:PlotValid(pToPlot)) then
+		local iMyDefenseStrength = myCity:GetStrengthValue();
+		local iTheirAttackStrength = theirUnit:GetMaxAttackStrength(pToPlot, pFromPlot, pMyUnit);
+		theirUnitDamageInflicted = theirUnit:GetCombatDamage(iTheirAttackStrength, iMyDefenseStrength, myCityDamageInflicted + theirUnitCurHP, false, false, true);
+		local iTempDamage = theirUnit:GetCombatDamage(iMyDefenseStrength, iTheirAttackStrength, theirUnitCurHP, false, true, false);
+		if (iTempDamage > myCityDamageInflicted) then
+			myCityDamageInflicted = iTempDamage;
 		end
 	end
 
